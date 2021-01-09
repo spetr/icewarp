@@ -49,19 +49,30 @@ test -z "$DNSSERVER" && DNSSERVER=`grep -i '^nameserver' /etc/resolv.conf |head 
 ./tool.sh set system c_system_services_sip_remoteaccesshost "${PUBLICIP}"
 ./tool.sh set system c_mail_smtp_general_dnsserver "${DNSSERVER}"
 ./tool.sh set system c_system_storage_accounts_odbcconnstring "accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-./tool.sh set system c_as_challenge_connectionstring "antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-./tool.sh set system c_gw_connectionstring "groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-./tool.sh set system c_accounts_global_accounts_directorycacheconnectionstring "dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 ./tool.sh set system c_activesync_dbconnection "activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-./tool.sh set system c_system_tools_backup_db_directorycache "activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+./tool.sh set system c_as_challenge_connectionstring "antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+./tool.sh set system c_accounts_global_accounts_directorycacheconnectionstring "dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+./tool.sh set system c_gw_connectionstring "groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
 ./icewarpd.sh --start
 
-# Initialize accounts database
+# Accounts database
 ./tool.sh create tables 0 "accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
-# Initialize groupware database
+# Activesync
+# TODO
+
+# Antispam database
+./tool.sh create tables 3 "antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+
+# Directorycache database
+./tool.sh create tables 4 "dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+
+# Groupware database
 ./tool.sh create tables 2 "groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+
+# Webmail database
+# TODO
 
 ./tool.sh set system c_system_storage_dir_mailpath            /data/mail/
 ./tool.sh set system c_system_services_fulltext_database_path /data/yoda/

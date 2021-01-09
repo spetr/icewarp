@@ -4,7 +4,7 @@ services:
     image: "spetr/icewarp:latest"
     container_name: "icewarp"
     build:
-      context: server/.
+      context: ./server
       dockerfile: Dockerfile
     environment:
       SQL_HOST: "icewarp_sql"
@@ -13,7 +13,7 @@ services:
     depends_on: 
       - mariadb
     volumes:
-      - ./data/icewarp:/data:delegated
+      - icewarp_data:/data
     ports:
       - "25:25/tcp"
       - "8080:80/tcp"
@@ -38,9 +38,13 @@ services:
     container_name: "icewarp_sql"
     environment:
       MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
-    volumes:
-      - ./data/icewarp_sql:/var/lib/mysql:delegated
+#   volumes:
+#      - icewarp_sql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
       - default
+
+volumes:
+  icewarp_data:
+  icewarp_sql_data:
