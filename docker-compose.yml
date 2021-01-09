@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  server:
+    image: "spetr/icewarp:latest"
+    container_name: "icewarp"
+    build:
+      context: server/.
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: "mariadb"
+      DB_USER: "root"
+      DB_PASSWORD: "dI9aK0bS2lX2nD5b"
+    depends_on: 
+      - mariadb
+    volumes:
+      - data:/data
+    ports:
+      - "8080:80"
+    networks:
+      - default
+  mariadb:
+    image: "mariadb:latest"
+    container_name: "icewarp_sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
+    volumes:
+      - sql:/var/lib/mysql
+    ports:
+      - "3309:3309"
+    networks:
+      - default
+
+volumes:
+  data:
+  sql:
