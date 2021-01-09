@@ -37,7 +37,7 @@ The first command to run must be:
 
 `docker exec -it icewarp /opt/icewarp/wizard.sh`
 
-This command will allow you to :
+This command will allow you to:
 
 - Activate the license (request evaluation or activate purchased license)
 - Create first domain
@@ -50,9 +50,11 @@ This command will allow you to :
 #### To stop the container
 
 `docker stop -t 120 icewarp`
+`docker stop -t 60 icewarp_sql`
 
 (Give a value of 120 or more to the parameter '-t' to allow all IceWarp processes to exit gracefully.)
 
 #### To restart the container
 
-`docker restart container0_icewarp`
+`docker restart icewarp_sql`
+`docker restart icewarp`

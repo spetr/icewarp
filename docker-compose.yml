@@ -13,7 +13,9 @@ services:
     depends_on: 
       - mariadb
     volumes:
-      - data:/data
+      - type: bind
+        source: ./data/icewarp
+        target: /data
     ports:
       - "8080:80"
     networks:
@@ -24,12 +26,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
     volumes:
-      - sql:/var/lib/mysql
+      - type: bind
+        source: ./data/icewarp_sql
+        target: /var/lib/mysql
     ports:
       - "3309:3309"
     networks:
       - default
-
-volumes:
-  data:
-  sql:
