@@ -13,8 +13,7 @@ FROM --platform=amd64 centos:7
 LABEL maintainer="petr@icewarp.com"
 LABEL description="IceWarpServer 13"
 VOLUME [ "/data" ]
-COPY init.sh /usr/local/bin/
-COPY IceWarpServer-*.tar.gz /tmp/
+COPY init.sh IceWarpServer-*.tar.gz /tmp/
 RUN set -ex; \
 	yum update -y ;\
 	yum install -y mariadb ;\
@@ -43,6 +42,7 @@ RUN set -ex; \
 	rm -rf calendar ;\
 	rm -rf config ;\
 	rm -rf spam ;\
+	mv /tmp/init.sh /usr/local/bin/init.sh ;\
 	chmod 755 /usr/local/bin/init.sh ;\
 	mkdir -p /data ;\
 	yum clean all ;\
