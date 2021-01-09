@@ -10,6 +10,9 @@
 #    GroupWare              : 5229
 
 FROM --platform=amd64 centos:7
+LABEL maintainer="petr@icewarp.com"
+LABEL description="IceWarpServer 13"
+VOLUME [ "/data" ]
 COPY init.sh /usr/local/bin/
 COPY IceWarpServer-*.tar.gz /tmp/
 RUN set -ex; \
@@ -48,3 +51,5 @@ COPY path.dat /opt/icewarp/path.dat
 VOLUME [ "/data" ]
 EXPOSE 25/tcp 587/tcp 465/tcp 110/tcp 995/tcp 143/tcp 993/tcp 5222/tcp 5223/tcp 5269/tcp 5060/udp 5060/tcp 5061/udp 10000-10256/udp 80/tcp 443/tcp 1080/tcp 5229/tcp
 ENTRYPOINT [ "/usr/local/bin/init.sh" ]
+STOPSIGNAL SIGTERM
+HEALTHCHECK --interval=30s --timeout=3s --start-period=120s CMD curl -f http://localhost/ || exit 1
