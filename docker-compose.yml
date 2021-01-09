@@ -7,17 +7,30 @@ services:
       context: server/.
       dockerfile: Dockerfile
     environment:
-      DB_HOST: "mariadb"
-      DB_USER: "root"
-      DB_PASSWORD: "dI9aK0bS2lX2nD5b"
+      SQL_HOST: "icewarp_sql"
+      SQL_USER: "root"
+      SQL_PASSWORD: "dI9aK0bS2lX2nD5b"
     depends_on: 
       - mariadb
     volumes:
-      - type: bind
-        source: ./data/icewarp
-        target: /data
+      - ./data/icewarp:/data:delegated
     ports:
-      - "8080:80"
+      - "25:25/tcp"
+      - "8080:80/tcp"
+      - "80:80/tcp"
+      - "110:110/tcp"
+      - "143:143/tcp"
+      - "443:443/tcp"
+      - "465:465/tcp"
+      - "587:587/tcp"
+      - "993:993/tcp"
+      - "995:995/tcp"
+      - "5060:5060/udp"
+      - "5060:5060/tcp"
+      - "5061:5061/udp"
+      - "5222:5222/tcp"
+      - "5223:5223/tcp"
+      - "5269:5269/tcp"
     networks:
       - default
   mariadb:
@@ -26,10 +39,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
     volumes:
-      - type: bind
-        source: ./data/icewarp_sql
-        target: /var/lib/mysql
+      - ./data/icewarp_sql:/var/lib/mysql:delegated
     ports:
-      - "3309:3309"
+      - "3306:3306"
     networks:
       - default

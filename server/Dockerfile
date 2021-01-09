@@ -17,6 +17,7 @@ COPY init.sh /usr/local/bin/
 COPY IceWarpServer-*.tar.gz /tmp/
 RUN set -ex; \
 	yum update -y ;\
+	yum install -y mariadb ;\
 	mkdir -p /tmp/install ;\
 	test -f /tmp/IceWarpServer-13.0.0_RHEL7_x64.tar.gz &&\
 		tar xzf /tmp/IceWarpServer-13.0.0_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
@@ -39,9 +40,9 @@ RUN set -ex; \
 	tar czf calendar-default.tgz calendar ; \
 	tar czf config-default.tgz config ;\
 	tar czf spam-default.tgz spam ;\
-	rm -rf calendar/* ;\
-	rm -rf config/* ;\
-	rm -rf spam/* ;\
+	rm -rf calendar ;\
+	rm -rf config ;\
+	rm -rf spam ;\
 	chmod 755 /usr/local/bin/init.sh ;\
 	mkdir -p /data ;\
 	yum clean all ;\
