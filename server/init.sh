@@ -45,7 +45,7 @@ echo 'CREATE DATABASE IF NOT EXISTS iw_activesync DEFAULT CHARACTER SET utf8mb4 
 echo 'CREATE DATABASE IF NOT EXISTS iw_webcache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci' | mysql
 
 # Detect IP addresses and DNS servers
-test -z "$PUBLICIP" && PUBLICIP=`curl http://ipecho.net/plain`
+test -z "$PUBLICIP" && PUBLICIP=`curl http://ipecho.net/plain 2>/dev/null`
 test -z "$LOCALIP" && LOCALIP=$(hostname -I)
 test -z "$DNSSERVER" && DNSSERVER=`grep -i '^nameserver' /etc/resolv.conf |head -n1|cut -d ' ' -f2`
 
@@ -89,7 +89,7 @@ echo ./tool.sh create tables 4 "iw_dircache;${SQL_USER};*****;${SQL_HOST};3;2"
 ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
 # Groupware database
-./tool.sh create tables 2 "iw_groupware;${SQL_USER};*****;${SQL_HOST};3;2"
+echo ./tool.sh create tables 2 "iw_groupware;${SQL_USER};*****;${SQL_HOST};3;2"
 ./tool.sh create tables 2 "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
 # Webmail database
