@@ -15,22 +15,23 @@ services:
     volumes:
       - icewarp_data:/data
     ports:
-      - "25:25/tcp"
-      - "8080:80/tcp"
-      - "80:80/tcp"
-      - "110:110/tcp"
-      - "143:143/tcp"
-      - "443:443/tcp"
-      - "465:465/tcp"
-      - "587:587/tcp"
-      - "993:993/tcp"
-      - "995:995/tcp"
-      - "5060:5060/udp"
-      - "5060:5060/tcp"
-      - "5061:5061/udp"
-      - "5222:5222/tcp"
-      - "5223:5223/tcp"
-      - "5269:5269/tcp"
+      - "25:25/tcp"     # SMTP
+      - "80:80/tcp"     # HTTP
+      - "8080:80/tcp"   # Alternative HTTP
+      - "110:110/tcp"   # POP3
+      - "143:143/tcp"   # IMAP
+      - "443:443/tcp"   # HTTPS
+      - "465:465/tcp"   # SMTPS
+      - "587:587/tcp"   # SMTP
+      - "993:993/tcp"   # IMAPS
+      - "995:995/tcp"   # POP3S
+      - "1080:1080/tcp" # SOCKS
+      - "5060:5060/udp" # SIP
+      - "5060:5060/tcp" # SIP
+      - "5061:5061/udp" # SIP
+      - "5222:5222/tcp" # XMLL
+      - "5223:5223/tcp" # XMPP TLS
+      - "5269:5269/tcp" # Groupware
     networks:
       - default
   mariadb:

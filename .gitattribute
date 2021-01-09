@@ -1,0 +1,6 @@
+docker-compose.yml text eol=lf
+Dockerfile text eol=lf
+Makefile text eol=lf
+*.md text eol=crlf
+*.sh text eol=lf
+*.cmd text eol=crlf

@@ -10,14 +10,11 @@ Business email, TeamChat for project teamwork, real-time office document collabo
 
 You should create folder that can be used for persistent data. For exexample:
 
-`mkdir /data/`
-`chmod a+rwx /data`
+`mkdir ./data/`
+
+`chmod a+rwx ./data`
 
 #### Run the docker stack
-
-You can modify the command to replace hosticewarp0 with the real hostname,
-'TZ=Europe/Paris' with your timezone, /data/ with the actual folder names on
-your hst machine.
 
 `docker-compose up`
 
@@ -50,6 +47,7 @@ This command will allow you to:
 #### To stop the container
 
 `docker stop -t 120 icewarp`
+
 `docker stop -t 60 icewarp_sql`
 
 (Give a value of 120 or more to the parameter '-t' to allow all IceWarp processes to exit gracefully.)
@@ -57,4 +55,5 @@ This command will allow you to:
 #### To restart the container
 
 `docker restart icewarp_sql`
+
 `docker restart icewarp`
