@@ -11,7 +11,7 @@ Business email, TeamChat for project teamwork, real-time office document collabo
 You should create folder that can be used for persistent data. For exexample:
 
 `mkdir /data/`
-`chmod a+rwx /data/config /data/mail /data/logs /data/temp`
+`chmod a+rwx /data`
 
 #### Run the docker stack
 
