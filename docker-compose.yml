@@ -11,7 +11,7 @@ services:
       SQL_USER: "root"
       SQL_PASSWORD: "dI9aK0bS2lX2nD5b"
     depends_on: 
-      - mariadb
+      - icewarp_sql
     volumes:
       - icewarp_data:/data
     ports:
@@ -34,7 +34,7 @@ services:
       - "5269:5269/tcp" # Groupware
     networks:
       - default
-  mariadb:
+  icewarp_sql:
     image: "mariadb:latest"
     container_name: "icewarp_sql"
     environment:
