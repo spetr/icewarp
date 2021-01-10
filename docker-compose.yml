@@ -39,8 +39,8 @@ services:
     container_name: "icewarp_sql"
     environment:
       MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
-#   volumes:
-#      - icewarp_sql_data:/var/lib/mysql
+    volumes:
+      - icewarp_sql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
