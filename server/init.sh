@@ -88,15 +88,15 @@ echo ./tool.sh create tables 3 "iw_antispam;${SQL_USER};*****;${SQL_HOST};3;2"
 echo ./tool.sh create tables 4 "iw_dircache;${SQL_USER};*****;${SQL_HOST};3;2"
 ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
-# Groupware database
-echo ./tool.sh create tables 2 "iw_groupware;${SQL_USER};*****;${SQL_HOST};3;2"
-./tool.sh create tables 2 "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-
 # Webmail database
 # TODO
 
 echo "Starting services..."
 ./icewarpd.sh --start
+
+# Create groupware database
+echo ./tool.sh create tables 2 "iw_groupware;${SQL_USER};*****;${SQL_HOST};3;2"
+./tool.sh create tables 2 "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
 
 ./tool.sh set system c_system_storage_accounts_storagemode     2
 ./tool.sh set system c_system_storage_accounts_odbcmultithread 1
