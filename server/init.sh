@@ -16,10 +16,10 @@ cd /opt/icewarp
 # Put default persistent content if data dir is empty
 test -d /data/archive || mkdir -p /data/archive
 test -d /data/backup || mkdir -p /data/backup
-test "$(ls -A /data/calendar 2>/dev/null))" || tar xzf calendar-default.tgz -C /data/
-test "$(ls -A /data/config 2>/dev/null))" || tar xzf config-default.tgz -C /data/
+test -z "$(ls -A /data/calendar 2>/dev/null))" || tar xzf calendar-default.tgz -C /data/
+test -z "$(ls -A /data/config 2>/dev/null))" || tar xzf config-default.tgz -C /data/
 test -d /data/mail || mkdir -p /data/mail
-test "$(ls -A /data/spam 2>/dev/null)" || tar xzf spam-default.tgz -C /data/
+test -z "$(ls -A /data/spam 2>/dev/null)" || tar xzf spam-default.tgz -C /data/
 test -d /data/_incoming || mkdir -p /data/_incoming
 test -d /data/_outgoing || mkdir -p /data/_outgoing
 
