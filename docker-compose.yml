@@ -14,7 +14,9 @@ services:
     depends_on: 
       - icewarp_sql
     volumes:
-      - icewarp_data:/data
+      - type: "bind"
+        source: "./data/icewarp"
+        target: "/data"
     ports:
       - "25:25/tcp"     # SMTP
       - "80:80/tcp"     # HTTP
@@ -41,12 +43,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
     volumes:
-      - icewarp_sql_data:/var/lib/mysql
+      - type: "bind"
+        source: "./data/icewarp_sql"
+        target: "/var/lib/mysql"
     ports:
       - "3306:3306"
     networks:
       - default
-
-volumes:
-  icewarp_data:
-  icewarp_sql_data:
