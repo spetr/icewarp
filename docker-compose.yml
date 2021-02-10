@@ -3,6 +3,7 @@ services:
   server:
     image: "spetr/icewarp:latest"
     container_name: "icewarp"
+    platform: linux/amd64
     build:
       context: ./server
       dockerfile: Dockerfile
