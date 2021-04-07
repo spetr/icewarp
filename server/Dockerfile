@@ -19,11 +19,12 @@ RUN set -ex; \
 	yum update -y ;\
 	yum install -y mariadb ;\
 	mkdir -p /tmp/install ;\
-	test -f /tmp/IceWarpServer-13.0.0_RHEL7_x64.tar.gz &&\
-		tar xzf /tmp/IceWarpServer-13.0.0_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
-	test -f /tmp/IceWarpServer-13.0.0_RHEL7_x64.tar.gz ||\
-		curl https://dl.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.0_RHEL7_x64.tar.gz --output - |\
+	if [ -f /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz ]; then\
+		tar xzf /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
+	else\
+		curl https://dl.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --output - |\
 		tar xzf - --strip-components=1 -C /tmp/install ;\
+	fi ;\
 	sed -i 's?>/dev/tty??' /tmp/install/platform ;\
 	/tmp/install/install.sh --auto --install-dir /opt/icewarp ;\
 	/opt/icewarp/tool.sh set system c_system_storage_dir_mailpath /data/mail/ ;\

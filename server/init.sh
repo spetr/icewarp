@@ -19,6 +19,8 @@ cd /opt/icewarp
 
 echo 'Starting IceWarp Server'
 
+test -z "$SQL_PASSWORD_FILE" || SQL_PASSWORD=$(<$SQL_PASSWORD_FILE)
+
 # Detect IP addresses and DNS servers if not set with ENV
 echo -n 'Testing network connectivity ... '
 test -z "$PUBLICIP" && PUBLICIP=$(curl http://ipecho.net/plain 2>/dev/null)

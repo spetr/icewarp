@@ -1,5 +1,7 @@
 version: "3.9"
+
 services:
+
   server:
     image: "spetr/icewarp:latest"
     container_name: "icewarp"
@@ -7,10 +9,13 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    secrets:
+      - sql_password
     environment:
       SQL_HOST: "icewarp_sql"
       SQL_USER: "root"
-      SQL_PASSWORD: "dI9aK0bS2lX2nD5b"
+      #SQL_PASSWORD: "dI9aK0bS2lX2nD5b"
+      SQL_PASSWORD_FILE: "/run/secrets/sql_password"
     depends_on: 
       - icewarp_sql
     volumes:
@@ -37,11 +42,15 @@ services:
       - "5269:5269/tcp" # Groupware
     networks:
       - default
+
   icewarp_sql:
     image: "mariadb:latest"
     container_name: "icewarp_sql"
+    secrets:
+      - sql_password  
     environment:
-      MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
+      #MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
+      MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/sql_password"
     volumes:
       - type: "bind"
         source: "./data/icewarp_sql"
@@ -50,3 +59,7 @@ services:
       - "3306:3306"
     networks:
       - default
+
+secrets:
+  sql_password:
+    file: ./secrets/sql_password.txt
