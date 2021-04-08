@@ -62,6 +62,7 @@ RUN set -ex; \
 	mv /tmp/redis.so /opt/icewarp/php/ext/redis.so ;\
 	chmod 755 /opt/icewarp/php/ext/redis.so ;\
 	sed -i '/^extension=tnef/a extension=igbinary\nextension=msgpack\nextension=redis' /opt/icewarp/php/php.ini ;\
+	sed -i 's/^upload_tmp_dir.*/upload_tmp_dir = \/data\/temp\/php/g' /opt/icewarp/php/php.ini ;\
 	mkdir -p /data ;\
 	yum clean all ;\
 	rm -rf /tmp/* ;\

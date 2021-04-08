@@ -35,6 +35,8 @@ test -z "$(ls -A /data/calendar 2>/dev/null))" || (echo 'Initializing calendar f
 test -z "$(ls -A /data/config 2>/dev/null))" || (echo 'Initializing config folder'; tar xzf config-default.tgz -C /data/)
 test -d /data/mail || (echo "Creating mail folder"; mkdir -p /data/mail)
 test -z "$(ls -A /data/spam 2>/dev/null)" || (echo 'Initializing spam folder'; tar xzf spam-default.tgz -C /data/)
+test -d /data/temp || (echo 'Creating temp folder'; mkdir -p /data/temp)
+test -d /data/temp/php || (echo 'Creating php temp folder'; mkdir -p /data/temp/php)
 test -d /data/_incoming || (echo 'Creating _incoming folder'; mkdir -p /data/_incoming)
 test -d /data/_outgoing || (echo 'Creating _outgoing folder'; mkdir -p /data/_outgoing)
 

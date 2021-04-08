@@ -1,6 +1,5 @@
 all:
-	cd server
-	docker build . -t spetr/icewarp:latest
+	cd server && docker build . -t spetr/icewarp:latest
 
 up:
 	docker-compose up
@@ -10,9 +9,6 @@ start:
 
 stop:
 	docker-compose stop
-
-push:
-	docker-compose push
 
 clean:
 	rm -rf ./data/icewarp/*
