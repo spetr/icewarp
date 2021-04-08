@@ -2,13 +2,10 @@ all:
 	cd server && docker build . -t spetr/icewarp:latest
 
 up:
-	docker-compose up --detach
-
-start:
-	docker-compose start
+	docker compose up --detach --remove-orphans
 
 stop:
-	docker-compose stop
+	docker compose stop
 
 clean:
 	rm -rf ./data/icewarp/*
