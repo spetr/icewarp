@@ -14,10 +14,11 @@ FROM --platform=amd64 centos:7
 LABEL maintainer="petr@icewarp.com"
 LABEL description="IceWarpServer 13"
 VOLUME [ "/data" ]
-COPY init.sh path.dat IceWarpServer-*.tar.gz /tmp/
+COPY init.sh path.dat igbinary.so msgpack.so redis.so IceWarpServer-*.tar.gz /tmp/
 RUN set -ex; \
 	yum update -y ;\
-	yum install -y mariadb ;\
+	yum install -y epel-release mariadb ;\
+	yum install -y liblzf ;\
 	mkdir -p /tmp/install ;\
 	if [ -f /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz ]; then\
 		tar xzf /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
@@ -51,6 +52,13 @@ RUN set -ex; \
 	mv /tmp/path.dat /opt/icewarp/path.dat ;\
 	mv /tmp/init.sh /init.sh ;\
 	chmod 755 /init.sh ;\
+	mv /tmp/igbinary.so /opt/icewarp/php/ext/igbinary.so ;\
+	chmod 755 /opt/icewarp/php/ext/igbinary.so ;\
+	mv /tmp/msgpack.so /opt/icewarp/php/ext/msgpack.so ;\
+	chmod 755 /opt/icewarp/php/ext/msgpack.so ;\
+	mv /tmp/redis.so /opt/icewarp/php/ext/redis.so ;\
+	chmod 755 /opt/icewarp/php/ext/redis.so ;\
+	sed -i '/^extension=tnef/a extension=igbinary\nextension=msgpack\nextension=redis' /opt/icewarp/php/php.ini ;\
 	mkdir -p /data ;\
 	yum clean all ;\
 	rm -rf /tmp/* ;\

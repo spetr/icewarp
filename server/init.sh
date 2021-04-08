@@ -40,6 +40,13 @@ test -d /data/_outgoing || (echo 'Creating _outgoing folder'; mkdir -p /data/_ou
 
 # Configure IceWarp before start
 echo -n 'Configuration tasks 1/2 ... '
+if [ -z "$REDIS_HOST" ]; then
+   sed -i 's/^session\.save_handler.*/session\.save_handler = files/g' /opt/icewarp/php/php.ini 
+   sed -i 's/^session\.save_path.*/session\.save_path = \/tmp/g' /opt/icewarp/php/php.ini 
+else
+   sed -i 's/^session\.save_handler.*/session\.save_handler = redis/g' /opt/icewarp/php/php.ini 
+   sed -i "s/^session\.save_path.*/session\.save_path = tcp:\/\/${REDIS_HOST}:6379/g" /opt/icewarp/php/php.ini 
+fi
 ./tool.sh set system c_system_services_sip_localaccesshost "${LOCALIP}" >/dev/null
 ./tool.sh set system c_system_services_sip_remoteaccesshost "${PUBLICIP}" >/dev/null
 ./tool.sh set system c_mail_smtp_general_dnsserver "${DNSSERVER}" >/dev/null
@@ -147,7 +154,7 @@ echo 'OK'
 
 echo 'Server started'
 
-if [ ! -f /data/config/license.key ]; then
+if [ ! -f /data/license.key ]; then
    echo ''
    echo '****************************************************************************'
    echo '* No license key found.                                                    *'

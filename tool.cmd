@@ -1,1 +1,1 @@
-docker exec -it icewarp /opt/icewarp/tool.sh
+docker exec -it icewarp /opt/icewarp/tool.sh %*

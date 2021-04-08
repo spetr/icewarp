@@ -6,9 +6,12 @@ services:
     image: "spetr/icewarp:latest"
     container_name: "icewarp"
     platform: linux/amd64
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    deploy:
+      restart_policy:
+        condition: on-failure
+#    build:
+#      context: ./server
+#      dockerfile: Dockerfile
     secrets:
       - sql_password
     environment:
@@ -16,6 +19,7 @@ services:
       SQL_USER: "root"
       #SQL_PASSWORD: "dI9aK0bS2lX2nD5b"
       SQL_PASSWORD_FILE: "/run/secrets/sql_password"
+      REDIS_HOST: "icewarp_redis"
     depends_on: 
       - icewarp_sql
     volumes:
@@ -46,6 +50,9 @@ services:
   icewarp_sql:
     image: "mariadb:latest"
     container_name: "icewarp_sql"
+    deploy:
+      restart_policy:
+        condition: on-failure
     secrets:
       - sql_password  
     environment:
@@ -57,6 +64,20 @@ services:
         target: "/var/lib/mysql"
     ports:
       - "3306:3306"
+    networks:
+      - default
+
+  icewarp_redis:
+    image: "redis:latest"
+    container_name: "icewarp_redis"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    command: "--appendonly yes"
+    volumes:
+      - type: bind
+        source: "./data/icewarp_redis"
+        target: "/data"
     networks:
       - default
 

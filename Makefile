@@ -13,6 +13,11 @@ stop:
 push:
 	docker-compose push
 
+clean:
+	rm -rf ./data/icewarp/*
+	rm -rf ./data/icewarp_redis/*
+	rm -rd ./data/icewarp_sql/*
+
 fetch:
 	rm -f files/IceWarpServer-*.tar.gz
 	curl https://dl.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --output ./server/IceWarpServer-13.0.1_RHEL7_x64.tar.gz
