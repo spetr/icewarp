@@ -27,7 +27,6 @@ services:
     ports:
       - "25:25/tcp"     # SMTP
       - "80:80/tcp"     # HTTP
-      - "8080:80/tcp"   # Alternative HTTP
       - "110:110/tcp"   # POP3
       - "143:143/tcp"   # IMAP
       - "443:443/tcp"   # HTTPS

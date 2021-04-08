@@ -2,7 +2,7 @@ all:
 	cd server && docker build . -t spetr/icewarp:latest
 
 up:
-	docker-compose up
+	docker-compose up --detach
 
 start:
 	docker-compose start

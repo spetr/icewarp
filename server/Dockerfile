@@ -41,11 +41,12 @@ RUN set -ex; \
 	/opt/icewarp/tool.sh set system c_system_tools_backup_db_gw '/data/backup/groupware.db;;;;7;3' ;\
 	/opt/icewarp/tool.sh set system c_system_tools_backup_db_directorycacheenabled 1 ;\
 	/opt/icewarp/tool.sh set system c_system_tools_backup_db_directorycache '/data/backup/directorycache.db;;;;7;3' ;\
-	/opt/icewarp/tool.sh set system C_system_adv_ext_snmpserver 1 ;\
+	/opt/icewarp/tool.sh set system c_system_adv_ext_snmpserver 1 ;\
 	/opt/icewarp/tool.sh set system c_meeting_active 1 ;\
 	/opt/icewarp/tool.sh set system c_smsservice_active 1 ;\
 	/opt/icewarp/icewarpd.sh --stop ;\
 	cd /opt/icewarp ;\
+	sed -i '/<REDIRECT>/a <ITEM><WHAT>http:\/\/*<\/WHAT><TO>https:\/\/*<\/TO><REGEX>0<\/REGEX><\/ITEM>' /opt/icewarp/config/webserver.dat ;\
 	tar czf calendar-default.tgz calendar ; \
 	tar czf config-default.tgz config ;\
 	tar czf spam-default.tgz spam ;\
