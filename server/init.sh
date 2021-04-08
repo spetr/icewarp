@@ -134,6 +134,7 @@ if ! checkMySQLTableExists 'iw_groupware' 'MetaData'; then
       echo 'Error, can not create tables in groupware database.'
       exit 1
    fi
+   ./tool.sh set system c_teamchat_active 1
    echo 'OK'
 fi
 

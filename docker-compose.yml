@@ -23,9 +23,7 @@ services:
     depends_on: 
       - icewarp_sql
     volumes:
-      - type: "bind"
-        source: "./data/icewarp"
-        target: "/data"
+      - "./data/icewarp:/data:delegated"
     ports:
       - "25:25/tcp"     # SMTP
       - "80:80/tcp"     # HTTP
@@ -59,9 +57,7 @@ services:
       #MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
       MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/sql_password"
     volumes:
-      - type: "bind"
-        source: "./data/icewarp_sql"
-        target: "/var/lib/mysql"
+      - "./data/icewarp_sql:/var/lib/mysql:delegated"
     ports:
       - "3306:3306"
     networks:
@@ -75,9 +71,7 @@ services:
         condition: on-failure
     command: "--appendonly yes"
     volumes:
-      - type: bind
-        source: "./data/icewarp_redis"
-        target: "/data"
+        - "./data/icewarp_redis:/data:delegated"
     networks:
       - default
 

@@ -1,5 +1,6 @@
 all:
-	docker-compose build
+	cd server
+	docker build . -t spetr/icewarp:latest
 
 up:
 	docker-compose up
