@@ -97,9 +97,6 @@ if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo 'OK'
 fi
 
-# Create tables - Activesync
-# TODO
-
 # Create tables - Antispam database
 if ! checkMySQLTableExists 'iw_antispam' 'MetaData'; then
    echo -n 'Creating tables in antispam database ... '
@@ -139,6 +136,21 @@ if ! checkMySQLTableExists 'iw_groupware' 'MetaData'; then
    ./tool.sh set system c_teamchat_active 1
    echo 'OK'
 fi
+./tool.sh set system c_gw_connectionstring "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+
+# Create tables - Create groupware database
+if ! checkMySQLTableExists 'iw_activesync' 'MetaData'; then
+   echo -n 'Creating tables in activesync database ... '
+   ./tool.sh create tables 6 "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   if [ "$?" -ne 0 ]; then
+      echo 'Error, can not create tables in activesync database.'
+      exit 1
+   fi
+   ./tool.sh set system c_teamchat_active 1
+   echo 'OK'
+fi
+./tool.sh set system c_activesync_dbconnection "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+
 
 echo -n 'Configuration tasks 2/2 ... '
 ./tool.sh set system c_system_storage_accounts_storagemode '2' >/dev/null
