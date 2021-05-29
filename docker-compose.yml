@@ -43,6 +43,8 @@ services:
       - "5269:5269/tcp" # Groupware
     networks:
       - default
+    cap_add:
+      - SYS_PTRACE
 
   icewarp_sql:
     image: "mariadb:latest"
