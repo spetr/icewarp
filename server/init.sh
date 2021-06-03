@@ -52,6 +52,7 @@ fi
 ./tool.sh set system c_system_services_sip_localaccesshost "${LOCALIP}" >/dev/null
 ./tool.sh set system c_system_services_sip_remoteaccesshost "${PUBLICIP}" >/dev/null
 ./tool.sh set system c_mail_smtp_general_dnsserver "${DNSSERVER}" >/dev/null
+./tool.sh set system c_system_mysqldefaultcharset "utf8mb4_unicode_ci" >/dev/null
 ./tool.sh set system c_system_storage_accounts_odbcconnstring "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 ./tool.sh set system c_activesync_dbconnection "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 ./tool.sh set system c_as_challenge_connectionstring "iw_antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
