@@ -89,7 +89,8 @@ echo 'OK'
 # Create tables - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo -n 'Creating tables in accounts database ... '
-   ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   echo ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+   ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" #>/dev/null
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in accounts database.'
       exit 1
