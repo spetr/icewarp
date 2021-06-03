@@ -90,6 +90,17 @@ echo 'OK'
 # Enable logging
 ./tool.sh set system C_System_SQLLogType 3
 
+# Create tables - Directorycache database
+if ! checkMySQLTableExists 'iw_dircache' 'MetaData'; then
+   echo -n 'Creating tables in directory cache database ... '
+   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   if [ "$?" -ne 0 ]; then
+      echo 'Error, can not create tables in directory cache database.'
+      exit 1
+   fi
+   echo 'OK'
+fi
+
 # Create tables - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo -n 'Creating tables in accounts database ... '
@@ -108,17 +119,6 @@ if ! checkMySQLTableExists 'iw_antispam' 'MetaData'; then
    ./tool.sh create tables 3 "iw_antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in antispam database.'
-      exit 1
-   fi
-   echo 'OK'
-fi
-
-# Create tables - Directorycache database
-if ! checkMySQLTableExists 'iw_dircache' 'MetaData'; then
-   echo -n 'Creating tables in directory cache database ... '
-   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
-   if [ "$?" -ne 0 ]; then
-      echo 'Error, can not create tables in directory cache database.'
       exit 1
    fi
    echo 'OK'
