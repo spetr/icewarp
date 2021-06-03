@@ -86,6 +86,10 @@ mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_activesync DEFAULT CHARACTER SE
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_webcache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 echo 'OK'
 
+
+# Enable logging
+./tool.sh /opt/icewarp/tool.sh set system C_System_SQLLogType 3
+
 # Create tables - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo -n 'Creating tables in accounts database ... '
