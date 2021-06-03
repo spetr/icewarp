@@ -88,7 +88,7 @@ echo 'OK'
 
 
 # Enable logging
-./tool.sh /opt/icewarp/tool.sh set system C_System_SQLLogType 3
+./tool.sh set system C_System_SQLLogType 3
 
 # Create tables - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
