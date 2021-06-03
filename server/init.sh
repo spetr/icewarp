@@ -94,35 +94,31 @@ echo 'OK'
 # Create tables - Directorycache database
 if ! checkMySQLTableExists 'iw_dircache' 'MetaData'; then
    echo -n 'Creating tables in directory cache database ... '
-   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in directory cache database.'
       exit 1
    fi
-   echo 'OK'
 fi
 
 # Create tables - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo -n 'Creating tables in accounts database ... '
-   echo ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-   ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" #>/dev/null
+   ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in accounts database.'
       exit 1
    fi
-   echo 'OK'
 fi
 
 # Create tables - Antispam database
 if ! checkMySQLTableExists 'iw_antispam' 'MetaData'; then
    echo -n 'Creating tables in antispam database ... '
-   ./tool.sh create tables 3 "iw_antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   ./tool.sh create tables 3 "iw_antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in antispam database.'
       exit 1
    fi
-   echo 'OK'
 fi
 
 # Create tables - Webmail database
@@ -134,26 +130,24 @@ echo 'Starting services...'
 # Create tables - Create groupware database
 if ! checkMySQLTableExists 'iw_groupware' 'MetaData'; then
    echo -n 'Creating tables in groupware database ... '
-   ./tool.sh create tables 2 "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   ./tool.sh create tables 2 "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in groupware database.'
       exit 1
    fi
    ./tool.sh set system c_teamchat_active 1
-   echo 'OK'
 fi
 ./tool.sh set system c_gw_connectionstring "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 
 # Create tables - Create groupware database
 if ! checkMySQLTableExists 'iw_activesync' 'MetaData'; then
    echo -n 'Creating tables in activesync database ... '
-   ./tool.sh create tables 6 "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
+   ./tool.sh create tables 6 "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
    if [ "$?" -ne 0 ]; then
       echo 'Error, can not create tables in activesync database.'
       exit 1
    fi
    ./tool.sh set system c_teamchat_active 1
-   echo 'OK'
 fi
 ./tool.sh set system c_activesync_dbconnection "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 
