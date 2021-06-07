@@ -23,7 +23,7 @@ RUN set -ex; \
 	if [ -f /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz ]; then\
 		tar xzf /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
 	else\
-		curl https://dl.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --output - |\
+		curl https://cdnfiles.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --output - |\
 		tar xzf - --strip-components=1 -C /tmp/install ;\
 	fi ;\
 	sed -i 's?>/dev/tty??' /tmp/install/platform ;\
