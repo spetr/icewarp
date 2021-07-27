@@ -57,6 +57,7 @@ services:
     environment:
       #MYSQL_ROOT_PASSWORD: "dI9aK0bS2lX2nD5b"
       MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/sql_password"
+    command: --lower_case_table_names=1
     volumes:
       - "./data/icewarp_sql:/var/lib/mysql:delegated"
     ports:
