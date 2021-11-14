@@ -57,7 +57,6 @@ fi
 ./tool.sh set system c_system_services_sip_localaccesshost "${LOCALIP}" >/dev/null
 ./tool.sh set system c_system_services_sip_remoteaccesshost "${PUBLICIP}" >/dev/null
 ./tool.sh set system c_mail_smtp_general_dnsserver "${DNSSERVER}" >/dev/null
-./tool.sh set system c_system_mysqldefaultcharset "utf8mb4_unicode_ci" >/dev/null
 ./tool.sh set system c_system_storage_accounts_odbcconnstring "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 ./tool.sh set system c_activesync_dbconnection "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 ./tool.sh set system c_as_challenge_connectionstring "iw_antispam;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
@@ -85,10 +84,10 @@ echo 'OK'
 # Create SQL databases
 echo -n 'Checking SQL databases ... '
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_accounts DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
-mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_antispam DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
-mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_groupware DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
-mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_dircache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_activesync DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
+mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_antispam DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
+mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_dircache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
+mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_groupware DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_webcache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 echo 'OK'
 
@@ -125,9 +124,6 @@ if ! checkMySQLTableExists 'iw_antispam' 'MetaData'; then
       exit 1
    fi
 fi
-
-# Create tables - Webmail database
-# TODO
 
 echo 'Starting services...'
 ./icewarpd.sh --start
