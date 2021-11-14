@@ -57,7 +57,7 @@ RUN set -ex; \
 	rm -rf mail ;\
 	rm -rf var ;\
 	mv /tmp/path.dat /opt/icewarp/path.dat ;\
-	ln -s /dev/shm/var /opt/icewarp/var/ ;\
+	ln -s /dev/shm/var/ /opt/icewarp/var ;\
 	mv /tmp/init.sh /init.sh ;\
 	chmod 755 /init.sh ;\
 	mv /tmp/igbinary.so /opt/icewarp/php/ext/igbinary.so ;\
