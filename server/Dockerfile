@@ -47,6 +47,10 @@ RUN set -ex; \
 	/opt/icewarp/tool.sh set system c_system_mysqldefaultcharset utf8mb4 ;\
 	/opt/icewarp/tool.sh set system c_mail_imap_idledisable 1 ;\
 	/opt/icewarp/tool.sh set system c_system_services_imap_indexstorage 1 ;\
+	/opt/icewarp/tool.sh set system c_system_sqllogtype 3 ;\
+	/opt/icewarp/tool.sh set system c_system_storage_accounts_odbcmultithread 1 ;\
+	/opt/icewarp/tool.sh set system c_system_storage_accounts_odbcmaxthreads 20 ;\
+	/opt/icewarp/tool.sh set system c_system_storage_accounts_storagemode 2 ;\
 	/opt/icewarp/icewarpd.sh --stop ;\
 	cd /opt/icewarp ;\
 	sed -i '/<REDIRECT>/a <ITEM><WHAT>http:\/\/*<\/WHAT><TO>https:\/\/*<\/TO><REGEX>0<\/REGEX><\/ITEM>' /opt/icewarp/config/webserver.dat ;\

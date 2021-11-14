@@ -81,7 +81,7 @@ done
 test "$SQL_OK" != 'true' && (echo 'SQL connection error'; exit 1)
 echo 'OK'
 
-# Create SQL databases
+# Create SQL databases if not exists
 echo -n 'Checking SQL databases ... '
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_accounts DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_activesync DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
@@ -91,21 +91,7 @@ mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_groupware DEFAULT CHARACTER SET
 mysql -N -s -e 'CREATE DATABASE IF NOT EXISTS iw_webcache DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
 echo 'OK'
 
-
-# Enable logging
-./tool.sh set system C_System_SQLLogType 3
-
-# Create tables - Directorycache database
-if ! checkMySQLTableExists 'iw_dircache' 'MetaData'; then
-   echo -n 'Creating tables in directory cache database ... '
-   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
-   if [ "$?" -ne 0 ]; then
-      echo 'Error, can not create tables in directory cache database.'
-      exit 1
-   fi
-fi
-
-# Create tables - Accounts database
+# Create tables if not exists - Accounts database
 if ! checkMySQLTableExists 'iw_accounts' 'MetaData'; then
    echo -n 'Creating tables in accounts database ... '
    ./tool.sh create tables 0 "iw_accounts;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
@@ -125,6 +111,16 @@ if ! checkMySQLTableExists 'iw_antispam' 'MetaData'; then
    fi
 fi
 
+# Create tables if not exists - Directorycache database
+if ! checkMySQLTableExists 'iw_dircache' 'MetaData'; then
+   echo -n 'Creating tables in directory cache database ... '
+   ./tool.sh create tables 4 "iw_dircache;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
+   if [ "$?" -ne 0 ]; then
+      echo 'Error, can not create tables in directory cache database.'
+      exit 1
+   fi
+fi
+
 echo 'Starting services...'
 ./icewarpd.sh --start
 
@@ -138,9 +134,8 @@ if ! checkMySQLTableExists 'iw_groupware' 'MetaData'; then
    fi
    ./tool.sh set system c_teamchat_active 1
 fi
-./tool.sh set system c_gw_connectionstring "iw_groupware;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
 
-# Create tables - Create groupware database
+# Create tables - Create activesync database
 if ! checkMySQLTableExists 'iw_activesync' 'MetaData'; then
    echo -n 'Creating tables in activesync database ... '
    ./tool.sh create tables 6 "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2"
@@ -150,13 +145,8 @@ if ! checkMySQLTableExists 'iw_activesync' 'MetaData'; then
    fi
    ./tool.sh set system c_teamchat_active 1
 fi
-./tool.sh set system c_activesync_dbconnection "iw_activesync;${SQL_USER};${SQL_PASSWORD};${SQL_HOST};3;2" >/dev/null
-
 
 echo -n 'Configuration tasks 2/2 ... '
-./tool.sh set system c_system_storage_accounts_storagemode '2' >/dev/null
-./tool.sh set system c_system_storage_accounts_odbcmultithread '1' >/dev/null
-./tool.sh set system c_system_storage_accounts_odbcmaxthreads '20' >/dev/null
 ./tool.sh set system c_system_storage_dir_mailpath '/data/mail/' >/dev/null
 ./tool.sh set system c_system_services_fulltext_database_path '/data/yoda/' >/dev/null
 ./tool.sh set system c_system_storage_dir_temppath '/data/temp/' >/dev/null
