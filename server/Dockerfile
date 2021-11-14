@@ -20,14 +20,14 @@ RUN set -ex; \
 	yum install -y epel-release mariadb ;\
 	yum install -y liblzf ;\
 	mkdir -p /tmp/install ;\
-	if [ -f /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz ]; then\
-		tar xzf /tmp/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
+	if [ -f /tmp/IceWarpServer-13.*_RHEL7_x64.tar.gz ]; then\
+		tar xzf /tmp/IceWarpServer-13.*_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
 	else\
-		curl https://cdnfiles.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.1_RHEL7_x64.tar.gz --output - |\
+		curl https://cdnfiles.icewarp.com/server/RedHat/RedHat7/icewarp13/IceWarpServer-13.0.2_RHEL7_x64.tar.gz --output - |\
 		tar xzf - --strip-components=1 -C /tmp/install ;\
 	fi ;\
 	sed -i 's?>/dev/tty??' /tmp/install/platform ;\
-	/tmp/install/install.sh --auto --install-dir /opt/icewarp ;\
+	/tmp/install/install.sh --docker --install-dir /opt/icewarp ;\
 	/opt/icewarp/tool.sh set system c_system_storage_dir_mailpath /data/mail/ ;\
 	/opt/icewarp/tool.sh set system c_system_services_fulltext_database_path /data/yoda/ ;\
 	/opt/icewarp/tool.sh set system c_system_storage_dir_temppath /data/temp/ ;\
