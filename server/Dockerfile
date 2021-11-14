@@ -27,7 +27,7 @@ RUN set -ex; \
 		tar xzf - --strip-components=1 -C /tmp/install ;\
 	fi ;\
 	sed -i 's?>/dev/tty??' /tmp/install/platform ;\
-	/tmp/install/install.sh --docker --install-dir /opt/icewarp ;\
+	/tmp/install/install.sh --docker --install-dir /opt/icewarp --start-on-boot 0 ;\
 	/opt/icewarp/tool.sh set system c_system_storage_dir_mailpath /data/mail/ ;\
 	/opt/icewarp/tool.sh set system c_system_services_fulltext_database_path /data/yoda/ ;\
 	/opt/icewarp/tool.sh set system c_system_storage_dir_temppath /data/temp/ ;\
