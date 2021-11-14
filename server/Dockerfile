@@ -54,7 +54,10 @@ RUN set -ex; \
 	rm -rf calendar ;\
 	rm -rf config ;\
 	rm -rf spam ;\
+	rm -rf mail ;\
+	rm -rf var ;\
 	mv /tmp/path.dat /opt/icewarp/path.dat ;\
+	ln -s /dev/shm/var /opt/icewarp/var/ ;\
 	mv /tmp/init.sh /init.sh ;\
 	chmod 755 /init.sh ;\
 	mv /tmp/igbinary.so /opt/icewarp/php/ext/igbinary.so ;\
@@ -66,8 +69,6 @@ RUN set -ex; \
 	sed -i '/^extension=tnef/a extension=igbinary\nextension=msgpack\nextension=redis' /opt/icewarp/php/php.ini ;\
 	sed -i 's/^upload_tmp_dir.*/upload_tmp_dir = \/data\/temp\/php/g' /opt/icewarp/php/php.ini ;\
 	mkdir -p /data/ ;\
-	rmdir /opt/icewarp/mail/ ;\
-	ln -s /dev/shm/var /opt/icewarp/var/ ;\
 	yum clean all ;\
 	rm -rf /tmp/* ;\
 	rm -rf /var/cache/yum ;\
