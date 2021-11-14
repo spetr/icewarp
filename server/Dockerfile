@@ -18,7 +18,7 @@ COPY init.sh path.dat igbinary.so msgpack.so redis.so IceWarpServer-*.tar.gz /tm
 RUN set -ex; \
 	yum update -y ;\
 	yum install -y epel-release ;\
-	yum install -y liblzf mariadb psmisc ;\
+	yum install -y liblzf mariadb psmisc java-1.7.0-openjdk-headless ;\
 	mkdir -p /tmp/install ;\
 	if [ -f /tmp/IceWarpServer-13.*_RHEL7_x64.tar.gz ]; then\
 		tar xzf /tmp/IceWarpServer-13.*_RHEL7_x64.tar.gz --strip-components=1 -C /tmp/install ;\
