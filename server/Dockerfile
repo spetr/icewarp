@@ -28,38 +28,12 @@ RUN set -ex; \
 	fi ;\
 	sed -i 's?>/dev/tty??' /tmp/install/platform ;\
 	/tmp/install/install.sh --docker --install-dir /opt/icewarp --start-on-boot 0 ;\
-	/opt/icewarp/tool.sh set system c_system_storage_dir_mailpath /data/mail/ ;\
-	/opt/icewarp/tool.sh set system c_system_services_fulltext_database_path /data/yoda/ ;\
-	/opt/icewarp/tool.sh set system c_system_storage_dir_temppath /data/temp/ ;\
-	/opt/icewarp/tool.sh set system c_system_storage_dir_logpath /data/logs/ ;\
-	/opt/icewarp/tool.sh set system c_system_tools_autoarchive_path /data/archive/ ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_accountsenabled 1 ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_accounts '/data/backup/accounts.db;;;;7;3' ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_asenabled 1 ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_as '/data/backup/antispam.db;;;;7;3' ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_gwenabled 1 ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_gw '/data/backup/groupware.db;;;;7;3' ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_directorycacheenabled 1 ;\
-	/opt/icewarp/tool.sh set system c_system_tools_backup_db_directorycache '/data/backup/directorycache.db;;;;7;3' ;\
-	/opt/icewarp/tool.sh set system c_system_adv_ext_snmpserver 1 ;\
-	/opt/icewarp/tool.sh set system c_meeting_active 1 ;\
-	/opt/icewarp/tool.sh set system c_smsservice_active 1 ;\
-	/opt/icewarp/tool.sh set system c_system_mysqldefaultcharset utf8mb4 ;\
-	/opt/icewarp/tool.sh set system c_mail_imap_idledisable 1 ;\
-	/opt/icewarp/tool.sh set system c_system_services_imap_indexstorage 1 ;\
-	/opt/icewarp/tool.sh set system c_system_sqllogtype 3 ;\
-	/opt/icewarp/tool.sh set system c_system_storage_accounts_odbcmultithread 1 ;\
-	/opt/icewarp/tool.sh set system c_system_storage_accounts_odbcmaxthreads 20 ;\
-	/opt/icewarp/tool.sh set system c_system_storage_accounts_storagemode 2 ;\
 	/opt/icewarp/icewarpd.sh --stop ;\
+	rm -f /opt/icewarp/config/settings.cfg ;\
 	cd /opt/icewarp ;\
 	sed -i '/<REDIRECT>/a <ITEM><WHAT>http:\/\/*<\/WHAT><TO>https:\/\/*<\/TO><REGEX>0<\/REGEX><\/ITEM>' /opt/icewarp/config/webserver.dat ;\
-	tar czf calendar-default.tgz calendar ; \
 	tar czf config-default.tgz config ;\
-	tar czf spam-default.tgz spam ;\
-	rm -rf calendar ;\
 	rm -rf config ;\
-	rm -rf spam ;\
 	rm -rf mail ;\
 	rm -rf var ;\
 	mv /tmp/path.dat /opt/icewarp/path.dat ;\
@@ -78,6 +52,7 @@ RUN set -ex; \
 	yum clean all ;\
 	rm -rf /tmp/* ;\
 	rm -rf /var/cache/yum ;\
+	rm -f /root/icewarp-install.log ;\
 	rm -f /root/icewarp-install-error.log
 EXPOSE 25/tcp 587/tcp 465/tcp 110/tcp 995/tcp 143/tcp 993/tcp 5222/tcp 5223/tcp 5269/tcp 5060/udp 5060/tcp 5061/udp 10000-10256/udp 80/tcp 443/tcp 1080/tcp 5229/tcp
 ENTRYPOINT [ "/init.sh" ]

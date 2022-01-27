@@ -2,16 +2,13 @@ version: "3.9"
 
 services:
 
-  server:
+  icewarp_server:
     image: "spetr/icewarp:latest"
-    container_name: "icewarp"
+    container_name: "icewarp_server"
     platform: linux/amd64
     deploy:
       restart_policy:
         condition: on-failure
-#    build:
-#      context: ./server
-#      dockerfile: Dockerfile
     secrets:
       - sql_password
     environment:
