@@ -43,13 +43,14 @@ test -d /data/_outgoing || (echo 'Creating _outgoing folder'; mkdir -p /data/_ou
 
 # Create tmpfs dirs
 mkdir -p /dev/shm/var
+mkdir -p /dev/shm/sessions
 
 
 # Configure IceWarp before start
 echo -n 'Configuration tasks 1/2 ... '
 if [ -z "$REDIS_HOST" ]; then
    sed -i 's/^session\.save_handler.*/session\.save_handler = files/g' /opt/icewarp/php/php.ini 
-   sed -i 's/^session\.save_path.*/session\.save_path = \/tmp/g' /opt/icewarp/php/php.ini 
+   sed -i 's/^session\.save_path.*/session\.save_path = \/dev/shm/sessions/g' /opt/icewarp/php/php.ini 
 else
    sed -i 's/^session\.save_handler.*/session\.save_handler = redis/g' /opt/icewarp/php/php.ini 
    sed -i "s/^session\.save_path.*/session\.save_path = tcp:\/\/${REDIS_HOST}:6379/g" /opt/icewarp/php/php.ini 
