@@ -34,7 +34,7 @@ if [ ! -f '/data/config/settings.cfg' ]; then
    echo -n 'Initializing config folder... '
    tar xzf config-default.tgz -C /data/
 	/opt/icewarp/tool.sh set system c_system_storage_dir_mailpath /data/mail/
-	/opt/icewarp/tool.sh set system c_system_services_fulltext_database_path /data/yoda/
+#	/opt/icewarp/tool.sh set system c_system_services_fulltext_database_path /data/yoda/
 	/opt/icewarp/tool.sh set system c_system_storage_dir_temppath /data/temp/
    /opt/icewarp/tool.sh set system c_system_storage_dir_logpath /data/logs/
 	/opt/icewarp/tool.sh set system c_system_tools_autoarchive_path /data/archive/
@@ -173,7 +173,7 @@ fi
 
 echo -n 'Configuration tasks 2/2 ... '
 ./tool.sh set system c_system_storage_dir_mailpath '/data/mail/' >/dev/null
-./tool.sh set system c_system_services_fulltext_database_path '/data/yoda/' >/dev/null
+# ./tool.sh set system c_system_services_fulltext_database_path '/data/yoda/' >/dev/null
 ./tool.sh set system c_system_storage_dir_temppath '/data/temp/' >/dev/null
 ./tool.sh set system c_system_storage_dir_logpath '/data/logs/' >/dev/null
 ./tool.sh set system c_system_tools_autoarchive_path '/data/archive/' >/dev/null
